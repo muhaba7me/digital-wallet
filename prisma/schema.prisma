@@ -1,0 +1,86 @@
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+datasource db {
+  provider = "postgresql"
+}
+
+
+// --------------------
+// Users
+// --------------------
+model User {
+  id            String     @id @default(uuid())
+  name          String     @db.VarChar(255)
+  email         String     @unique @db.VarChar(255)
+  emailVerified Boolean    @default(false)
+  image         String?    @db.VarChar(512)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  // Relations
+  sessions      Session[]
+  accounts      Account[]
+
+  @@map("user")
+}
+
+// --------------------
+// Sessions
+// --------------------
+model Session {
+  id        String   @id @default(uuid())
+  token     String   @unique @db.VarChar(512)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires   DateTime
+  ipAddress String?  @db.VarChar(45)  // IPv6 safe
+  userAgent String?  @db.VarChar(512)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@map("session")
+}
+
+// --------------------
+// Accounts (OAuth / Credentials)
+// --------------------
+model Account {
+  id                   String   @id @default(uuid())
+  providerId           String   @db.VarChar(255)
+  accountId            String   @db.VarChar(255)
+  userId               String
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken          String?  @db.VarChar(512)
+  refreshToken         String?  @db.VarChar(512)
+  idToken              String?  @db.VarChar(512)
+  accessTokenExpiresAt DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                String?  @db.VarChar(255)
+  password             String?  @db.VarChar(255)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  @@unique([providerId, accountId]) // prevent duplicate provider accounts
+  @@index([userId])
+  @@map("account")
+}
+
+// --------------------
+// Verification (Email / OTP)
+// --------------------
+model Verification {
+  id         String   @id @default(uuid())
+  identifier String   @db.VarChar(255) // email or phone
+  token      String   @db.VarChar(255)
+  expires    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@unique([identifier, token]) // prevent repeated codes
+  @@map("verification")
+}
