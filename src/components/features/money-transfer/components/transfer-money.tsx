@@ -12,7 +12,7 @@ import { useCurrencySync } from "../currency/use-currency-sync";
 import { useGiftTotal } from "../currency/use-gift-totals";
 
 import Image from "next/image";
-import { CurrencyInput } from "../CurrencyInput";
+import { CurrencyInput } from "../currency-input";
 import { handleNumpadInput, MAX_ETB, MAX_USD, sanitizeAmountInput } from "../helpers";
 
 type ActiveField = "USD" | "ETB";

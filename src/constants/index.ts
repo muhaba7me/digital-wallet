@@ -1,6 +1,7 @@
 export const EXCHANGE_RATE = 165;
+export const GIFT_BONUS = 50;
 export const MIN_TRANSFER_AMOUNT = 5;
-export const MAX_TRANSFER_AMOUNT = 25000; 
+export const MAX_TRANSFER_AMOUNT = 25000;
 
 export const TRANSFER_STEPS = [
   { id: 1, title: 'Amount', description: 'Enter transfer amount' },

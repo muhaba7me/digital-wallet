@@ -14,6 +14,8 @@ interface PasswordLoginProps {
   email: string;
   onSuccess: () => Promise<void> | void;
   onForgotPassword?: () => void;
+  title?: string;
+  subtitle?: string;
 }
 
 interface PasswordSigninFormData {
@@ -76,7 +78,13 @@ function PasswordField({
   );
 }
 
-export default function PasswordLogin({ email, onSuccess, onForgotPassword }: PasswordLoginProps) {
+export default function PasswordLogin({
+  email,
+  onSuccess,
+  onForgotPassword,
+  title = "Sign in to your Account",
+  subtitle = "Please enter your email and Password to Login to your account."
+}: PasswordLoginProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -106,8 +114,8 @@ export default function PasswordLogin({ email, onSuccess, onForgotPassword }: Pa
     <div className="w-full max-w-md space-y-8 border rounded-2xl p-8">
       <div className="text-center space-y-2 flex flex-col items-center">
         <Image src="/image-1.png" alt="Logo" width={100} height={100} />
-        <h1 className="text-2xl font-bold text-gray-900 mt-6">Sign in to your Account</h1>
-        <p className="text-gray-600">Please enter your email and Password to Login to your account.</p>
+        <h1 className="text-2xl font-bold text-gray-900 mt-6">{title}</h1>
+        <p className="text-gray-600">{subtitle}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">

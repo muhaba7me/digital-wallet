@@ -67,6 +67,6 @@ export { BANKS } from './banks';
 // ===============================
 // Legacy / Backward Compatibility
 // ===============================
-export { TransferMultiStepForm } from './transfer-multi-step-core';
+export { TransferMultiStepForm } from './transfer-controller';
 export { TransferFormProviders as LegacyFormProvider } from './form-provider';
 export { transferFormSchema as legacyValidationSchema } from './validation-schemas';

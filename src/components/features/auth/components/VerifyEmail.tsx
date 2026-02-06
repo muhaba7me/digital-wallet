@@ -8,6 +8,9 @@ import { Button } from "@/components/shared/button";
 
 interface VerifyEmailFormProps {
   onVerified: () => Promise<void> | void;
+  email?: string;
+  title?: string;
+  subtitle?: string;
 }
 
 // Hook to handle resend timer
@@ -36,7 +39,7 @@ function OTPInput({
   value: string;
   onChange: (index: number, value: string) => void;
   onKeyDown: (index: number, e: KeyboardEvent<HTMLInputElement>) => void;
-    inputRef: (el: HTMLInputElement | null) => void;
+  inputRef: (el: HTMLInputElement | null) => void;
   disabled?: boolean;
 }) {
   return (
@@ -54,7 +57,12 @@ function OTPInput({
   );
 }
 
-export default function VerifyEmailForm({ onVerified }: VerifyEmailFormProps) {
+export default function VerifyEmailForm({
+  onVerified,
+  email,
+  title = "Verification Code",
+  subtitle = "We sent you a confirmation code to your phone number."
+}: VerifyEmailFormProps) {
   const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
   const [isLoading, setIsLoading] = useState(false);
   const [isResending, setIsResending] = useState(false);
@@ -109,8 +117,8 @@ export default function VerifyEmailForm({ onVerified }: VerifyEmailFormProps) {
       <div className="text-center space-y-2 flex flex-col items-center">
         <Image src="/image-1.png" alt="Logo" width={100} height={100} />
         <div className="text-center space-y-4">
-          <h1 className="text-2xl font-bold text-gray-900">Verification Code</h1>
-          <p className="text-gray-600">We sent you a confirmation code to your phone number.</p>
+          <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+          <p className="text-gray-600">{subtitle}</p>
         </div>
       </div>
 

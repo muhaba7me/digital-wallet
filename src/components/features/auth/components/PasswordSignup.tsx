@@ -13,6 +13,8 @@ import { PasswordSignupFormData, passwordSignupSchema } from "../../money-transf
 type Props = {
   email: string;
   onSuccess: () => Promise<void> | void;
+  title?: string;
+  subtitle?: string;
 };
 
 function PasswordField({
@@ -70,7 +72,12 @@ function PasswordField({
   );
 }
 
-export default function PasswordSignup({ email, onSuccess }: Props) {
+export default function PasswordSignup({
+  email,
+  onSuccess,
+  title = "Create your password",
+  subtitle = "Set a secure password for your account"
+}: Props) {
   const [isLoading, setIsLoading] = useState(false);
 
   const formik = useFormik<PasswordSignupFormData>({
@@ -104,8 +111,8 @@ export default function PasswordSignup({ email, onSuccess }: Props) {
     <div className="w-full max-w-md space-y-8 border rounded-2xl p-8">
       <div className="text-center space-y-2 flex flex-col items-center">
         <Image src="/image-1.png" alt="Logo" width={100} height={100} />
-        <h1 className="text-2xl font-bold text-gray-900 mt-6">Sign in to your Account</h1>
-        <p className="text-gray-600">Please enter your email and Password to Login to your account.</p>
+        <h1 className="text-2xl font-bold text-gray-900 mt-6">{title}</h1>
+        <p className="text-gray-600">{subtitle}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">

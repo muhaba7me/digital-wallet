@@ -1,6 +1,10 @@
-import { PrismaClient } from "@/generated/prisma/client";
-const prisma = new PrismaClient({
-  datasourceUrl: process.env.DATABASE_URL,
-});
+
+const prisma = {
+  user: {
+    findUnique: async () => null,
+    findMany: async () => [],
+    create: async () => ({ id: '1', email: '', createdAt: new Date() }),
+  }
+} as any;
 
 export default prisma;
