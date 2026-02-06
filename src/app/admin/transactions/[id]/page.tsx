@@ -3,10 +3,11 @@
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft, Printer } from "lucide-react";
-import { AdminNavbar } from "@/components/admin/admin-navbar";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+
 import { mockTransactions, statusStyles } from "@/lib/transactions";
+import { AdminNavbar } from "@/components/features/admin/components/AdminNavbar";
+import { Card, CardContent } from "@/components/shared/card";
+import { Button } from "@/components/shared/button";
 
 export default function TransactionDetailPage() {
   const params = useParams();
@@ -19,7 +20,7 @@ export default function TransactionDetailPage() {
     return (
       <div className="min-h-screen bg-gray-50">
         <AdminNavbar />
-        <main className="max-w-[1600px] mx-auto px-8 py-10">
+        <main className="max-w-400 mx-auto px-8 py-10">
           <Card>
             <CardContent className="py-12 text-center">
               <p className="text-gray-600 mb-4">Transaction not found</p>
@@ -41,7 +42,7 @@ export default function TransactionDetailPage() {
     <div className="min-h-screen bg-gray-50">
       <AdminNavbar />
 
-      <main className="max-w-[1200px] mx-auto px-8 py-10">
+      <main className="max-w-300 mx-auto px-8 py-10">
         <div className="flex items-center justify-between mb-8">
           <button
             onClick={() => router.back()}
@@ -52,7 +53,7 @@ export default function TransactionDetailPage() {
           </button>
           <Button
             onClick={handlePrint}
-            className="bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80"
+            className="bg-linear-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80"
           >
             <Printer size={18} className="mr-2" />
             Print Receipt

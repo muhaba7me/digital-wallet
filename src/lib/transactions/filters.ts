@@ -1,6 +1,9 @@
-import type { PaymentStatus, TransferStatus } from "./types";
-import { transactionsList } from "./list-mock-data";
+import type { PaymentStatus, TransferStatus, Transaction, TransactionListItem } from "./types";
+import {  transactionsList } from "./data-list";
 
+/**
+ * Available payment filter options including "all"
+ */
 export const paymentOptions: Array<PaymentStatus | "all"> = [
   "all",
   "Paid",
@@ -8,6 +11,9 @@ export const paymentOptions: Array<PaymentStatus | "all"> = [
   "Failed",
 ];
 
+/**
+ * Available transfer filter options including "all"
+ */
 export const transferOptions: Array<TransferStatus | "all"> = [
   "all",
   "Completed",
@@ -15,9 +21,14 @@ export const transferOptions: Array<TransferStatus | "all"> = [
   "Failed",
 ];
 
-export const bankOptions = [
+/**
+ * Generates bank options dynamically from transactions, including "all"
+ */
+export const bankOptions: string[] = [
   "all",
   ...Array.from(
-    new Set(transactionsList.map((transaction) => transaction.bankName)),
+    new Set(
+      transactionsList.map((transaction: TransactionListItem) => transaction.bankName)
+    )
   ),
 ];

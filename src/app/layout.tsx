@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
-import "@/styles/globals.css";
+
+import "./globals.css";
 import "react-phone-number-input/style.css";
 
-const outfitSans = Outfit({
+// Configure Outfit font globally with CSS variable
+const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
 });
 
+/**
+ * Site-wide metadata
+ */
 export const metadata: Metadata = {
   title: "Gift Ethiopia - Send Money to Ethiopia",
   description:
@@ -24,14 +29,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+/**
+ * Root layout for the application
+ */
+interface RootLayoutProps {
   children: React.ReactNode;
-}>) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className={`${outfitSans.className} antialiased`}>{children}</body>
+      <body className={`${outfit.className} antialiased`}>
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,4 +1,4 @@
-import type { TransactionListItem } from "./list-mock-data";
+import { TransactionListItem } from "./types";
 
 export const formatCurrency = (value: number, currency: "USD" | "ETB") =>
   new Intl.NumberFormat("en-US", {

@@ -1,10 +1,10 @@
 "use client";
 
-import { ActionMenu } from "@/components/features/admin/action-menu";
-import { AdminNavbar } from "@/components/features/admin/admin-navbar";
+import { ActionMenu } from "@/components/features/admin/components/ActionMenu";
+import { AdminNavbar } from "@/components/features/admin/components/AdminNavbar";
 import { Button } from "@/components/shared/button";
 import { Card, CardContent } from "@/components/shared/card";
-import { useSession } from "@/lib/auth-client";
+import { useSession } from "@/lib/auth/client";
 
 export default function AdminDashboardPage() {
   const { data: session, isPending } = useSession();

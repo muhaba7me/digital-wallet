@@ -1,7 +1,6 @@
-export const EXCHANGE_RATE = 165; // 1 USD = 165 ETB
-export const GIFT_BONUS = 50; // 50 ETB per USD
-export const MIN_TRANSFER_AMOUNT = 5; // Minimum $5
-export const MAX_TRANSFER_AMOUNT = 25000; // Maximum $25,000
+export const EXCHANGE_RATE = 165;
+export const MIN_TRANSFER_AMOUNT = 5;
+export const MAX_TRANSFER_AMOUNT = 25000; 
 
 export const TRANSFER_STEPS = [
   { id: 1, title: 'Amount', description: 'Enter transfer amount' },

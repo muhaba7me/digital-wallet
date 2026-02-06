@@ -1,4 +1,4 @@
-export { useAuth } from './useAuth';
-export { useTransfer } from './useTransfer';
-export { useAdmin } from './useAdmin';
-export { useUI } from './useUI';
+export { useAuth } from './use-auth';
+export { useTransfer } from './use-transfer';
+export { useAdmin } from './use-admin';
+export { useUI } from './use-uI';

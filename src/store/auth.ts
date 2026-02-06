@@ -34,14 +34,6 @@ export const useAuthStore = create<AuthStore>()(
         set({ isLoading: true, error: null });
         
         try {
-          // TODO: Implement actual API call
-          // const response = await fetch('/api/auth/login', {
-          //   method: 'POST',
-          //   headers: { 'Content-Type': 'application/json' },
-          //   body: JSON.stringify({ email, password })
-          // });
-          
-          // Mock implementation for now
           await new Promise(resolve => setTimeout(resolve, 1000));
           
           const mockUser: User = {

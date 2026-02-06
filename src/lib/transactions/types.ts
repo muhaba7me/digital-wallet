@@ -19,3 +19,18 @@ export type Transaction = {
   pickupBranch: string;
   pickupCode: string;
 };
+export type TransactionListItem = {
+  id: string;
+  senderName: string;
+  senderPhone: string;
+  recipientName: string;
+  recipientAccount: string;
+  bankName: string;
+  amountUsd: number;
+  exchangeRate: number;
+  amountEtb: number;
+  paymentStatus: PaymentStatus;
+  transferStatus: TransferStatus;
+  transactionDate: string;
+  details: string;
+};
