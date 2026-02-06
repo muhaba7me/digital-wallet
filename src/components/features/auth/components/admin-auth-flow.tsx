@@ -35,7 +35,7 @@ interface AuthFlowState {
   email: string;
 }
 
-async function checkEmailExists(email: string): Promise<boolean> {
+async function adminAuthFlow(email: string): Promise<boolean> {
   const res = await fetch("/api/auth/email-exists", {
     method: "POST",
     headers: {
@@ -52,7 +52,7 @@ async function checkEmailExists(email: string): Promise<boolean> {
   return Boolean(data.exists);
 }
 
-export default function ImprovedAuthFlow() {
+export default function AdminAuthFlow() {
   const router = useRouter();
   const [authState, setAuthState] = React.useState<AuthFlowState>({
     flowType: "LOGIN",
@@ -127,7 +127,7 @@ export default function ImprovedAuthFlow() {
   const handleLoginEmailSubmit = React.useCallback(
     async (email: string) => {
       const normalizedEmail = email.trim().toLowerCase();
-      const exists = await checkEmailExists(normalizedEmail);
+      const exists = await adminAuthFlow(normalizedEmail);
 
       setAuthState(prev => ({
         ...prev,
