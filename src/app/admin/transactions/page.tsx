@@ -14,7 +14,7 @@ import { useAuth } from "@/hooks/use-auth";
 
 export default function TransactionsPage() {
   const router = useRouter();
-  const { user, isAuthenticated, isLoading } = useAuth();
+  const { user, isLoading } = useAuth();
   const [transactions] = useState<TransactionListItem[]>(transactionsList);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
@@ -22,12 +22,6 @@ export default function TransactionsPage() {
   const [selectedTransfer, setSelectedTransfer] = useState<"all" | TransferStatus>("all");
   const [selectedBank, setSelectedBank] = useState("all");
 
-  // Additional authentication check
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push("/admin/signin");
-    }
-  }, [isLoading, isAuthenticated, router]);
 
   // Show loading state
   if (isLoading) {
@@ -41,26 +35,7 @@ export default function TransactionsPage() {
     );
   }
 
-  // Show unauthorized state
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Card className="w-full max-w-md">
-          <CardContent className="pt-6 text-center">
-            <p className="text-gray-600 mb-4">
-              You need to sign in to access this page.
-            </p>
-            <button
-              onClick={() => router.push("/admin/signin")}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-full font-semibold"
-            >
-              Sign In
-            </button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  
 
   const itemsPerPage = 10;
   const totalPages = Math.ceil(transactions.length / itemsPerPage);

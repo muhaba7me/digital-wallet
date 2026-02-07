@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/use-auth";
@@ -12,18 +12,23 @@ interface AuthState {
   step: Step;
   email: string;
 }
-
-function PasswordForm({
-  email,
-  onSubmit,
-  onBack,
-  error
-}: {
+type PasswordFormProps = {
   email: string;
   onSubmit: (password: string) => Promise<void>;
   onBack: () => void;
   error: string | null;
-}) {
+  title?: string;
+  subtitle?: string;
+};
+
+export function PasswordForm({
+  email,
+  onSubmit,
+  onBack,
+  error,
+  title = "Welcome back",
+  subtitle = "Sign in to continue",
+}: PasswordFormProps) {
   const [password, setPassword] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
@@ -46,6 +51,10 @@ function PasswordForm({
 
   return (
     <div className="w-full max-w-md mx-auto">
+       <div className="text-center space-y-2 flex flex-col items-center">
+              <Image src="/image-1.png" alt="Logo" width={100} height={100} />
+            
+            </div>
       <div className="text-center mb-8">
         <h2 className="text-2xl font-bold text-gray-900 mb-2">
           Login to your account
