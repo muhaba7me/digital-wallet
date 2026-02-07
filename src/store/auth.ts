@@ -7,8 +7,9 @@ interface AuthStore extends AuthState {
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
   login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
   clearError: () => void;
+  checkSession: () => Promise<void>;
 }
 
 export const useAuthStore = create<AuthStore>()(
@@ -19,11 +20,11 @@ export const useAuthStore = create<AuthStore>()(
       isAuthenticated: false,
       error: null,
 
-      setUser: (user) => 
-        set({ 
-          user, 
+      setUser: (user) =>
+        set({
+          user,
           isAuthenticated: !!user,
-          error: null 
+          error: null
         }),
 
       setLoading: (isLoading) => set({ isLoading }),
@@ -32,40 +33,84 @@ export const useAuthStore = create<AuthStore>()(
 
       login: async (email: string, password: string) => {
         set({ isLoading: true, error: null });
-        
+
         try {
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          
-          const mockUser: User = {
-            id: '1',
-            email,
-            name: email.split('@')[0],
-            role: email.includes('admin') ? 'admin' : 'user',
-            createdAt: new Date(),
-            updatedAt: new Date(),
-          };
-          
-          set({ 
-            user: mockUser, 
-            isAuthenticated: true, 
-            isLoading: false 
+          const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
           });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.error || 'Login failed');
+          }
+
+          if (data.success && data.user) {
+            set({
+              user: data.user,
+              isAuthenticated: true,
+              isLoading: false
+            });
+          } else {
+            throw new Error('Invalid response from server');
+          }
         } catch (error) {
-          set({ 
+          set({
             error: error instanceof Error ? error.message : 'Login failed',
-            isLoading: false 
+            isLoading: false
           });
         }
       },
 
-      logout: () => 
-        set({ 
-          user: null, 
-          isAuthenticated: false, 
-          error: null 
-        }),
+      logout: async () => {
+        try {
+          await fetch('/api/auth/get-session', {
+            method: 'POST',
+          });
+        } catch (error) {
+          console.error('Logout API call failed:', error);
+        }
+
+        set({
+          user: null,
+          isAuthenticated: false,
+          error: null
+        });
+      },
 
       clearError: () => set({ error: null }),
+
+      checkSession: async () => {
+        try {
+          const response = await fetch('/api/auth/get-session');
+          const data = await response.json();
+
+          if (data.user) {
+            set({
+              user: data.user,
+              isAuthenticated: true,
+              isLoading: false
+            });
+          } else {
+            set({
+              user: null,
+              isAuthenticated: false,
+              isLoading: false
+            });
+          }
+        } catch (error) {
+          console.error('Session check failed:', error);
+          set({
+            user: null,
+            isAuthenticated: false,
+            isLoading: false
+          });
+        }
+      },
     }),
     {
       name: 'auth-storage',

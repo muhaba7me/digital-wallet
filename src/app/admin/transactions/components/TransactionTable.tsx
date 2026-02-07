@@ -1,6 +1,6 @@
 "use client";
 
-import { Transaction, statusStyles, formatCurrency } from "@/lib/transactions";
+import { TransactionListItem, statusStyles, formatCurrency } from "@/lib/transactions";
 import { Table, TableHeader, TableBody, TableRow, TableCell, TableHead } from "@/components/shared/table";
 import { Button } from "@/components/shared/button";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import { Eye } from "lucide-react";
 import { FC } from "react";
 
 interface Props {
-  transactions: Transaction[];
+  transactions: TransactionListItem[];
 }
 
 export const TransactionTable: FC<Props> = ({ transactions }) => (
@@ -53,7 +53,7 @@ export const TransactionTable: FC<Props> = ({ transactions }) => (
               {tx.transferStatus}
             </span>
           </TableCell>
-       
+          <TableCell>{tx.transactionDate}</TableCell>
           <TableCell className="text-center">
             <Link href={`/admin/transactions/${tx.id}`}>
               <Button variant="ghost" size="sm">
@@ -64,5 +64,5 @@ export const TransactionTable: FC<Props> = ({ transactions }) => (
         </TableRow>
       ))}
     </TableBody>
-  </Table>
+  </Table >
 );

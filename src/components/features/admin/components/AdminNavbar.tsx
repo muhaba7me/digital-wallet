@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Bell, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { signOut } from "@/lib/auth/client";
+import { useAuth } from "@/hooks/use-auth";
 
 /* -----------------------------
    Profile dropdown menu
@@ -42,7 +42,7 @@ function ProfileMenu({
         </div>
 
         <div className="hidden sm:block text-white text-left">
-          <p className="text-sm font-medium">Solomon Kebede</p>
+          <p className="text-sm font-medium">Admin User</p>
           <p className="text-xs opacity-90">Gift Ethiopia Admin</p>
         </div>
 
@@ -113,8 +113,10 @@ function WelcomeSection() {
    Main navbar
 -------------------------------- */
 export function AdminNavbar() {
+  const { logout } = useAuth();
+
   async function handleSignOut() {
-    await signOut();
+    await logout();
     window.location.href = "/admin/signin";
   }
 

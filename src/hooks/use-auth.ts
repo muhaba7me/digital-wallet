@@ -13,6 +13,7 @@ export const useAuth = () => {
     login,
     logout,
     clearError,
+    checkSession,
   } = useAuthStore();
 
   const isAdmin = user?.role === 'admin';
@@ -31,5 +32,6 @@ export const useAuth = () => {
     login,
     logout,
     clearError,
+    checkSession,
   };
 };

@@ -1,4 +1,8 @@
-import { auth } from "@/lib/auth/config";
-import { toNextJsHandler } from "better-auth/next-js";
+// This file has been removed as part of the mocked authentication implementation
+export async function GET() {
+    return new Response('Not Found', { status: 404 });
+}
 
-export const { POST, GET } = toNextJsHandler(auth);
+export async function POST() {
+    return new Response('Not Found', { status: 404 });
+}

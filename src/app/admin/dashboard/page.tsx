@@ -4,12 +4,12 @@ import { ActionMenu } from "@/components/features/admin/components/ActionMenu";
 import { AdminNavbar } from "@/components/features/admin/components/AdminNavbar";
 import { Button } from "@/components/shared/button";
 import { Card, CardContent } from "@/components/shared/card";
-import { useSession } from "@/lib/auth/client";
+import { useAuth } from "@/hooks/use-auth";
 
 export default function AdminDashboardPage() {
-  const { data: session, isPending } = useSession();
+  const { user, isLoading, isAuthenticated } = useAuth();
 
-  if (isPending) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -20,7 +20,7 @@ export default function AdminDashboardPage() {
     );
   }
 
-  if (!session) {
+  if (!isAuthenticated || !user) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Card className="w-full max-w-md">
@@ -41,7 +41,7 @@ export default function AdminDashboardPage() {
     <div className="min-h-screen bg-gray-50">
       <AdminNavbar />
 
-      <main className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10">
+      <main className="max-w-400 mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10">
         <ActionMenu />
       </main>
 

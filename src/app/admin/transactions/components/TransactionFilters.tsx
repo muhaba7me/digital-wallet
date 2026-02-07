@@ -16,8 +16,8 @@ interface Props {
   onTransferChange: (value: "all" | TransferStatus) => void;
   onBankChange: (value: string) => void;
   onReset: () => void;
-  paymentOptions: PaymentStatus[];
-  transferOptions: TransferStatus[];
+  paymentOptions: Array<PaymentStatus | "all">;
+  transferOptions: Array<TransferStatus | "all">;
   bankOptions: string[];
 }
 

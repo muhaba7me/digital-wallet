@@ -1,6 +1,6 @@
 "use client";
 
-import AdminAuthFlow from "@/components/features/auth/components/admin-auth-flow";
+import MockAdminAuthFlow from "@/components/features/auth/components/MockAdminAuthFlow";
 import LeftSidebar from "@/components/features/auth/components/LeftSidebar";
 import RightSidebar from "@/components/features/auth/components/RightSidebar";
 
@@ -11,7 +11,7 @@ export default function AdminSigninPage() {
       <LeftSidebar />
 
       <RightSidebar>
-        <AdminAuthFlow />
+        <MockAdminAuthFlow />
       </RightSidebar>
     </div>
   );
