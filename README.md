@@ -16,6 +16,7 @@ This platform enables users to:
 - Real-time currency conversion (ETB to USD)
 - Gift bonus calculations for qualifying transfers
 - Transaction tracking and receipt generation
+- **Payment success page with "Done" button**
 
  Authentication System
 - User registration and login with email verification
@@ -23,9 +24,15 @@ This platform enables users to:
 - Admin dashboard for transaction management
 - Secure session management with HTTP-only cookies
 
+ Error Handling
+- **404 Not Found page** with consistent UI design
+- **Global error boundary** for graceful error handling
+- User-friendly error messages and recovery options
+- Navigation shortcuts to help users get back on track
+
 ## Test Credentials (Mocked Authentication)
 
-For testing purposes, use the following credentials:
+For testing purposes, only the following predefined credentials work:
 
 ### Admin Access
 - **Email:** admin@example.com
@@ -37,8 +44,17 @@ For testing purposes, use the following credentials:
 
 ### How to Test
 1. Navigate to `/admin/signin`
-2. Use the credentials above to access the admin panel
-3. Explore the transactions management and dashboard features
+2. Enter a **predefined email** (admin@example.com or user@example.com)
+3. If email exists → Route to password page
+4. If email not found → Show error below form
+5. Enter the correct password to access the admin panel
+
+### Important Notes
+- Users are **pre-defined** in the system
+- Admin role is assigned to emails containing "admin"
+- Regular user role for all other emails
+- Sessions expire after 24 hours for security
+- **Strict validation** - exact password match required
 
  Admin Panel
 - Transaction monitoring and status updates
@@ -86,5 +102,59 @@ For testing purposes, use the following credentials:
 - Individuals sending money from Ethiopia to the United States
 - Admin staff managing and monitoring transactions
 - Recipients receiving international transfers
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── admin/
+│   │   ├── signin/
+│   │   ├── dashboard/
+│   │   └── transactions/
+│   ├── api/
+│   │   └── auth/
+│   │       ├── login/
+│   │       ├── get-session/
+│   │       └── email-exists/
+│   ├── not-found.tsx
+│   ├── error.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── shared/
+│   │   ├── button.tsx
+│   │   ├── input.tsx
+│   │   ├── card.tsx
+│   │   ├── table.tsx
+│   │   └── field/
+│   └── features/
+│       ├── auth/
+│       │   ├── MockAdminAuthFlow.tsx
+│       │   ├── EmailForm.tsx
+│       │   └── PasswordForm.tsx
+│       ├── admin/
+│       │   ├── AdminNavbar.tsx
+│       │   └── ActionMenu.tsx
+│       ├── money-transfer/
+│       │   └── components/
+│       └── landing/
+├── lib/
+│   ├── mock-auth/
+│   │   └── mock-data.ts
+│   ├── transactions/
+│   │   ├── types.ts
+│   │   ├── data-list.ts
+│   │   ├── filters.ts
+│   │   └── index.ts
+│   ├── auth/
+│   └── utils.ts
+├── hooks/
+│   └── use-auth.ts
+├── types/
+│   └── index.ts
+└── package.json
+```
 
 This platform simplifies international money transfers while maintaining security and compliance standards.

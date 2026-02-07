@@ -3,7 +3,7 @@ import type { User } from '@/types';
 export interface MockUser {
   id: string;
   email: string;
-  password: string; 
+  password: string;
   name: string;
   role: 'user' | 'admin';
   createdAt: Date;
@@ -32,7 +32,7 @@ export const mockUsers: MockUser[] = [
   },
 ];
 
-// Mock session storage (in production, this would be in Redis/database)
+// Mock session storage 
 export const mockSessions = new Map<string, {
   user: User;
   expiresAt: Date;
@@ -50,6 +50,7 @@ export function validateUser(email: string, password: string): MockUser | null {
   const user = findUserByEmail(email);
   if (!user) return null;
 
+  // Strict validation: only accept exact password match
   return user.password === password ? user : null;
 }
 
@@ -62,7 +63,7 @@ export function createUser(email: string, password: string, name?: string): Mock
   const newUser: MockUser = {
     id: String(mockUsers.length + 1),
     email: email.toLowerCase(),
-    password, 
+    password,
     name: name || email.split('@')[0],
     role: email.includes('admin') ? 'admin' : 'user',
     createdAt: new Date(),
@@ -76,7 +77,7 @@ export function createUser(email: string, password: string, name?: string): Mock
 export function createSession(user: MockUser): string {
   const sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
-  
+
   mockSessions.set(sessionId, {
     user: {
       id: user.id,
@@ -88,19 +89,19 @@ export function createSession(user: MockUser): string {
     },
     expiresAt,
   });
-  
+
   return sessionId;
 }
 
 export function getSession(sessionId: string): { user: User } | null {
   const session = mockSessions.get(sessionId);
   if (!session) return null;
-  
+
   if (session.expiresAt < new Date()) {
     mockSessions.delete(sessionId);
     return null;
   }
-  
+
   return { user: session.user };
 }
 

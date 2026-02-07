@@ -21,13 +21,15 @@ export default function EmailForm({
   onSubmitEmail,
   title = "Enter your email",
   subtitle = "We'll use this to sign you in or create your account",
-  buttonText = "Continue"
+  buttonText = "Continue",
+  error = null
 }: {
   initialEmail?: string;
   onSubmitEmail: (email: string) => Promise<void>;
   title?: string;
   subtitle?: string;
   buttonText?: string;
+  error?: string | null;
 }) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -78,6 +80,9 @@ export default function EmailForm({
           />
           {formik.touched.email && formik.errors.email && (
             <FieldError errors={[{ message: formik.errors.email }]} />
+          )}
+          {error && (
+            <FieldError errors={[{ message: error }]} />
           )}
         </div>
 
