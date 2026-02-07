@@ -21,7 +21,24 @@ This platform enables users to:
 - User registration and login with email verification
 - Password reset functionality
 - Admin dashboard for transaction management
-- Secure session management using Better Auth
+- Secure session management with HTTP-only cookies
+
+## Test Credentials (Mocked Authentication)
+
+For testing purposes, use the following credentials:
+
+### Admin Access
+- **Email:** admin@example.com
+- **Password:** admin123
+
+### User Access
+- **Email:** user@example.com
+- **Password:** user123
+
+### How to Test
+1. Navigate to `/admin/signin`
+2. Use the credentials above to access the admin panel
+3. Explore the transactions management and dashboard features
 
  Admin Panel
 - Transaction monitoring and status updates
@@ -40,12 +57,12 @@ This platform enables users to:
  Backend
 - API: Next.js API routes
 - Database: Neon with Prisma ORM
-- Authentication: Better Auth for secure user management
+- Authentication: Mocked authentication system for development
 - Validation: Comprehensive input validation and error handling
 
  Key Components
 - Transfer Flow: Multi-step wizard with currency conversion
-- Authentication**: Email-based auth with verification codes
+- Authentication**: Email-based auth with secure session management
 - Admin Interface: Transaction management dashboard
 - Responsive Design: Mobile-first approach with desktop optimization
 
