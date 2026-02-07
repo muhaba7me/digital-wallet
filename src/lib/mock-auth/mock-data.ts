@@ -3,7 +3,7 @@ import type { User } from '@/types';
 export interface MockUser {
   id: string;
   email: string;
-  password: string; // In production, this would be hashed
+  password: string; 
   name: string;
   role: 'user' | 'admin';
   createdAt: Date;
@@ -49,8 +49,7 @@ export function findUserById(id: string): MockUser | undefined {
 export function validateUser(email: string, password: string): MockUser | null {
   const user = findUserByEmail(email);
   if (!user) return null;
-  
-  // In production, you'd use bcrypt.compare() here
+
   return user.password === password ? user : null;
 }
 
@@ -63,7 +62,7 @@ export function createUser(email: string, password: string, name?: string): Mock
   const newUser: MockUser = {
     id: String(mockUsers.length + 1),
     email: email.toLowerCase(),
-    password, // In production, this would be hashed
+    password, 
     name: name || email.split('@')[0],
     role: email.includes('admin') ? 'admin' : 'user',
     createdAt: new Date(),
